@@ -1,0 +1,1 @@
+BLACKLIST = set() #ids e valores unicos
