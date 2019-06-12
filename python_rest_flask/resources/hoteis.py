@@ -75,7 +75,7 @@ class Hoteis(Resource):
         return{'hoteis': hoteis}
 
         #select * from hoteis
-        #return {'hoteis': [hotel.jsnon() for hotel in HotelModel.query.all()]}
+        #return {'hoteis': [hotel.json() for hotel in HotelModel.query.all()]}
 
 class Hotel(Resource):
 
@@ -90,7 +90,7 @@ class Hotel(Resource):
         hotel = HotelModel.find_hotel(hotel_id)
        
         if hotel is not None:
-            return hotel.jsnon()
+            return hotel.json()
         return {'mesage': 'Hotel not found.'}, 404
         
     @jwt_required #esse decorador exige que o usuario esteja logado para poder executar a função
@@ -121,7 +121,7 @@ class Hotel(Resource):
         if hotel_encontrado:
             hotel_encontrado.update_hotel(**dados)
             hotel_encontrado.save_hotel() 
-            return hotel_encontrado.jsnon(), 200  
+            return hotel_encontrado.json(), 200  
         
         hotel = HotelModel(hotel_id, **dados)
 
@@ -130,7 +130,7 @@ class Hotel(Resource):
         except:
             # 500, internal server error
             return {'message': 'An internal error ocurred trying to save hotel.'}, 500 
-        return hotel.jsnon(), 201 #created
+        return hotel.json(), 201 #created
 
     @jwt_required
     def delete(self, hotel_id):
